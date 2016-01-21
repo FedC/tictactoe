@@ -3,7 +3,13 @@ var router = express.Router();
 var mongoose   = require('mongoose');
 mongoose.connect('mongodb://node:node@apollo.modulusmongo.net:27017/ma6Wujot');
 
-var User = require('../../models/user');
+var User = require('../models/user');
+
+// middleware to use for all requests
+router.use(function(req, res, next) {
+  console.log('API accessed');
+  next();
+});
 
 // gets users list
 router.get('/users', function (req, res) {

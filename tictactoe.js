@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var http = require('http').Server(app);
+var request = require('request');
 var io = require('socket.io')(http);
 var session = require("express-session");
 var cookie = require('cookie');
@@ -13,12 +14,9 @@ var COOKIE_SECRET = 'tinderaddict'; // use global configs in production
 var COOKIE_NAME = 'sid';
 
 var port = 8080;
-var routes = {
-  api: {}
-};
+var routes = {};
 routes.index = require('./routes/index');
-routes.api.users = require('./routes/api/users');
-routes.api.games = require('./routes/api/games');
+routes.api = require('./routes/api');
 
 // Configuration
 app.set('views', __dirname + '/views');
@@ -79,8 +77,7 @@ io.use(function(socket, next) {
 
 // routes
 app.use('/', routes.index);
-app.use('/api', routes.api.users);
-app.use('/api', routes.api.games);
+app.use('/api', routes.api);
 
 // socket connections
 io.on('connection', function(socket){
@@ -91,8 +88,22 @@ io.on('connection', function(socket){
 
   socket.on('disconnect', function(){
     console.log('user disconnected: ', sid);
+
     // broadcast to other sockets about new connection
     socket.broadcast.emit('user disconnected', {sid: sid});
+
+    // delete user from game
+    request({
+      url: 'http://localhost:8080/api/users/' + sid,
+      method: 'DELETE'
+    }, function(error, response, body){
+      if(error) {
+        console.log(error);
+      } else {
+        console.log(response.statusCode, body);
+      }
+    });
+
   });
    
   // send down current session ID

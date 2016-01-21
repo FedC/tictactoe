@@ -1,6 +1,8 @@
-# tic tac TOE
+# tictacTOE
 
 Express/NodeJS Tic Tac Toe game with Angular frontend.
+
+![Image of tictacTOE](https://github.com/fman7/tictactoe/blob/master/Screen Shot 2016-01-14 at 6.49.01 PM.png)
 
 ## Installation
 

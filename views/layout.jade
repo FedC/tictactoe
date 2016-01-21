@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    meta(charset='utf8')
+    base(href='/')
+    title Tic Tac Toe
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='/socket.io/socket.io.js')
+
+  body(ng-app="myApp" ng-controller='MainCtrl')
+    div.navbar
+      div.navbar-container
+        a.brand(href="/") 
+          span="Tic" 
+          span="Tac" 
+          span.thin="Toe"
+
+    ui-view
+
+    div.footer
+      p &copy; Federico Commisso 2016
+
+
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js')
+    script(src='/javascripts/lib/angular-ui-router.min.js')
+    script(src='https://cdn.firebase.com/js/client/2.3.2/firebase.js')
+    script(src='/javascripts/lib/moment.js')
+    script(src='/javascripts/app.js')
+    script(src='/javascripts/services.js')
+    script(src='/javascripts/controllers/MainCtrl.js')
+    

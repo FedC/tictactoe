@@ -57,3 +57,18 @@ section.app-content
         span {{moves['1,2']}}
       div.slab(ng-click='makeMove(2,2)' ng-data-move="{{moves['2,2']}}" ng-class="{empty: moves['2,2'] === undefined, winner: isWinner('2,2')}")
         span {{moves['2,2']}}
+
+  div.dialog(ng-class="{show: showDialog}")
+
+    h1 Last 10 Games
+
+    ul.list
+      li(ng-repeat='game in games') 
+        span {{game.name}}
+        span {{game.started_at}}
+        span 
+
+    div.close(ng-click='closeGamesList()') X
+
+
+

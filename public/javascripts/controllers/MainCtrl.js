@@ -179,6 +179,24 @@ app.controller("MainCtrl", function($scope, $http, User, Game) {
 
   $scope.isWinner = function (space) {
     return $scope.winnerSpaces.indexOf(space) !== -1; 
-  }
+  };
+
+  $scope.showGamesList = function () {
+    Game.find().then(function (games) {
+      // populate list
+      $scope.games = games.data;
+      // show the dialog
+      $scope.showDialog = true;
+    });
+  };
+
+  $scope.closeGamesList = function () {
+    // $scope.$apply(function () {
+      // show the dialog
+      $scope.showDialog = false;
+      // clear list
+      $scope.games = null;
+    // });
+  };
 
 });
